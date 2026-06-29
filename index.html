@@ -130,17 +130,21 @@
         <svg class="project-detail-outline" aria-hidden="true">
           <rect></rect>
         </svg>
-        <button class="project-detail-close glass-frame" type="button" aria-label="Close project detail" data-close-detail>
-          <span class="project-detail-close-icon" aria-hidden="true">+</span>
-          <svg class="glass-frame-outline" viewBox="0 0 50 50" aria-hidden="true">
-            <rect x="1" y="1" width="48" height="48" rx="11" ry="11"></rect>
-          </svg>
+        <button class="project-detail-close-hit" type="button" aria-label="Close project detail" data-close-detail>
+          <span class="project-detail-close-face glass-frame" aria-hidden="true">
+            <span class="project-detail-close-icon">+</span>
+            <svg class="glass-frame-outline" viewBox="0 0 50 50" aria-hidden="true">
+              <rect x="1" y="1" width="48" height="48" rx="11" ry="11"></rect>
+            </svg>
+          </span>
         </button>
         <div class="project-detail-media">
           <img src="" alt="" class="project-detail-image" />
           <a class="project-detail-cta glass-frame" href="#" target="_blank" rel="noreferrer">
             <span class="project-detail-cta-label">Visit the product</span>
-            <span class="project-detail-cta-outline" aria-hidden="true"></span>
+            <svg class="project-detail-cta-outline" aria-hidden="true">
+              <rect></rect>
+            </svg>
           </a>
         </div>
         <div class="project-detail-copy">
@@ -172,17 +176,21 @@
       const projectDetail = document.querySelector(".project-detail");
       const projectDetailPanel = document.querySelector(".project-detail-panel");
       const projectDetailOutline = document.querySelector(".project-detail-outline");
-      const projectDetailCloseButton = document.querySelector(".project-detail-close");
+      const projectDetailCloseButton = document.querySelector(".project-detail-close-hit");
+      const projectDetailCloseFace = document.querySelector(".project-detail-close-face");
       const projectDetailImage = document.querySelector(".project-detail-image");
       const projectDetailCta = document.querySelector(".project-detail-cta");
+      const projectDetailCtaOutline = document.querySelector(".project-detail-cta-outline");
       const projectDetailKicker = document.querySelector(".project-detail-kicker");
       const projectDetailTitle = document.querySelector(".project-detail-title");
       const projectDetailBody = document.querySelector(".project-detail-body");
       const projectDetailNotes = document.querySelector(".project-detail-notes");
       const projectDetailTools = document.querySelector(".project-detail-tools");
       const projectDetailCloseNodes = document.querySelectorAll("[data-close-detail]");
+      const DETAIL_CLOSE_DURATION = 320;
       let projectOutlineObserver;
       let activeProjectItem = null;
+      let detailCloseTimeout;
 
       const syncProjectOutlines = () => {
         projectItems.forEach((item) => {
@@ -231,6 +239,28 @@
         rect.setAttribute("ry", String(Math.max(radius - inset, 0)));
       };
 
+      const syncProjectDetailCtaOutline = () => {
+        const rect = projectDetailCtaOutline?.querySelector("rect");
+
+        if (!projectDetailCta || !projectDetailCtaOutline || !rect) {
+          return;
+        }
+
+        const width = projectDetailCta.clientWidth;
+        const height = projectDetailCta.clientHeight;
+        const radius = parseFloat(getComputedStyle(projectDetailCta).borderRadius) || 16;
+        const borderWidth = 1;
+        const inset = borderWidth / 2;
+
+        projectDetailCtaOutline.setAttribute("viewBox", `0 0 ${width} ${height}`);
+        rect.setAttribute("x", String(inset));
+        rect.setAttribute("y", String(inset));
+        rect.setAttribute("width", String(Math.max(width - inset * 2, 0)));
+        rect.setAttribute("height", String(Math.max(height - inset * 2, 0)));
+        rect.setAttribute("rx", String(Math.max(radius - inset, 0)));
+        rect.setAttribute("ry", String(Math.max(radius - inset, 0)));
+      };
+
       const syncProjectPreviewPosition = (item, event) => {
         if (!floatingProjectPreview || body.classList.contains("detail-open")) {
           return;
@@ -251,26 +281,22 @@
       };
 
       const updateDetailCloseProximity = (event) => {
-        if (!projectDetailCloseButton || !body.classList.contains("detail-open")) {
+        if (!projectDetailCloseButton || !projectDetailCloseFace || !body.classList.contains("detail-open")) {
           projectDetailCloseButton?.classList.remove("is-proximate");
+          body.classList.remove("cursor-force-interactive");
           return;
         }
 
-        const rect = projectDetailCloseButton.getBoundingClientRect();
-        const proximityRect = {
-          top: rect.top - 2,
-          right: rect.right + 2,
-          bottom: rect.bottom + 12,
-          left: rect.left - 2
-        };
-
+        const rect = projectDetailCloseFace.getBoundingClientRect();
+        const ringReach = 12;
         const isNearClose =
-          event.clientX >= proximityRect.left &&
-          event.clientX <= proximityRect.right &&
-          event.clientY >= proximityRect.top &&
-          event.clientY <= proximityRect.bottom;
+          event.clientX >= rect.left - ringReach &&
+          event.clientX <= rect.right + ringReach &&
+          event.clientY >= rect.top - ringReach &&
+          event.clientY <= rect.bottom + ringReach;
 
         projectDetailCloseButton.classList.toggle("is-proximate", isNearClose);
+        body.classList.toggle("cursor-force-interactive", isNearClose);
       };
 
       const openProjectDetail = (item) => {
@@ -303,18 +329,31 @@
         projectDetailNotes.textContent = notes || "";
         projectDetailTools.textContent = tools || "";
 
+        window.clearTimeout(detailCloseTimeout);
+        projectDetail.classList.remove("is-closing");
         projectDetail.setAttribute("aria-hidden", "false");
         body.classList.add("detail-open");
         floatingProjectPreview?.classList.remove("is-visible");
         requestAnimationFrame(syncProjectDetailOutline);
+        requestAnimationFrame(syncProjectDetailCtaOutline);
       };
 
       const closeProjectDetail = () => {
-        projectDetail?.setAttribute("aria-hidden", "true");
-        body.classList.remove("detail-open");
+        if (!projectDetail || projectDetail.getAttribute("aria-hidden") === "true") {
+          return;
+        }
+
+        window.clearTimeout(detailCloseTimeout);
+        projectDetail.classList.add("is-closing");
+        projectDetail.setAttribute("aria-hidden", "true");
         projectDetailCloseButton?.classList.remove("is-proximate");
-        activeProjectItem?.classList.remove("is-selected");
-        activeProjectItem = null;
+        body.classList.remove("cursor-force-interactive");
+        detailCloseTimeout = window.setTimeout(() => {
+          body.classList.remove("detail-open");
+          projectDetail.classList.remove("is-closing");
+          activeProjectItem?.classList.remove("is-selected");
+          activeProjectItem = null;
+        }, DETAIL_CLOSE_DURATION);
       };
 
       sceneToggle?.addEventListener("click", () => {
@@ -409,7 +448,21 @@
         });
       });
 
+      projectDetailPanel?.addEventListener("click", (event) => {
+        event.stopPropagation();
+      });
+
+      projectDetailCloseButton?.addEventListener("pointerdown", (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        closeProjectDetail();
+      });
+
       projectDetailCloseNodes.forEach((node) => {
+        if (node === projectDetailCloseButton) {
+          return;
+        }
+
         node.addEventListener("click", closeProjectDetail);
       });
 
@@ -421,13 +474,16 @@
 
       syncProjectOutlines();
       syncProjectDetailOutline();
+      syncProjectDetailCtaOutline();
       window.addEventListener("resize", syncProjectOutlines);
       window.addEventListener("resize", syncProjectDetailOutline);
+      window.addEventListener("resize", syncProjectDetailCtaOutline);
 
       if ("ResizeObserver" in window) {
         projectOutlineObserver = new ResizeObserver(() => {
           syncProjectOutlines();
           syncProjectDetailOutline();
+          syncProjectDetailCtaOutline();
         });
 
         projectItems.forEach((item) => {
@@ -437,12 +493,17 @@
         if (projectDetailPanel) {
           projectOutlineObserver.observe(projectDetailPanel);
         }
+
+        if (projectDetailCta) {
+          projectOutlineObserver.observe(projectDetailCta);
+        }
       }
 
       if (document.fonts?.ready) {
         document.fonts.ready.then(() => {
           syncProjectOutlines();
           syncProjectDetailOutline();
+          syncProjectDetailCtaOutline();
         });
       }
     </script>

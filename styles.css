@@ -130,7 +130,20 @@ body.cursor-interactive .cursor-glow {
   background: radial-gradient(circle, rgba(255, 255, 255, 0.24) 0%, rgba(185, 231, 255, 0.1) 40%, rgba(185, 231, 255, 0) 74%);
 }
 
+body.cursor-force-interactive .cursor-glow {
+  width: 180px;
+  height: 180px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.24) 0%, rgba(185, 231, 255, 0.1) 40%, rgba(185, 231, 255, 0) 74%);
+}
+
 body.cursor-interactive .cursor-ring {
+  width: 40px;
+  height: 40px;
+  border-color: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+body.cursor-force-interactive .cursor-ring {
   width: 40px;
   height: 40px;
   border-color: rgba(255, 255, 255, 0.95);
@@ -494,6 +507,10 @@ body.cursor-interactive .eyebrow {
   pointer-events: auto;
 }
 
+.project-detail.is-closing {
+  pointer-events: none;
+}
+
 .project-detail-backdrop {
   position: absolute;
   inset: 0;
@@ -561,13 +578,33 @@ body.cursor-interactive .eyebrow {
   transform: translateY(0) scale(1);
 }
 
-.project-detail-close {
+.project-detail-close-hit {
   position: absolute;
-  top: 18px;
-  right: 18px;
+  top: 12px;
+  right: 12px;
+  width: 62px;
+  height: 72px;
+  display: block;
+  padding: 0;
+  border: 0;
+  border-radius: 18px;
+  appearance: none;
+  -webkit-appearance: none;
+  background: transparent;
+  box-shadow: none;
+  z-index: 2;
+  cursor: pointer;
+  pointer-events: auto;
+  touch-action: manipulation;
+}
+
+.project-detail-close-face {
+  position: absolute;
+  top: 6px;
+  right: 6px;
   width: 50px;
   height: 50px;
-  z-index: 2;
+  pointer-events: none;
 }
 
 .project-detail-close-icon {
@@ -582,10 +619,35 @@ body.cursor-interactive .eyebrow {
   transition: transform 420ms ease, scale 420ms ease;
 }
 
-.project-detail-close:hover .project-detail-close-icon,
-.project-detail-close:focus-visible .project-detail-close-icon,
-.project-detail-close.is-proximate .project-detail-close-icon {
+.project-detail-close-hit:hover .project-detail-close-face::before,
+.project-detail-close-hit:focus-visible .project-detail-close-face::before,
+.project-detail-close-hit.is-proximate .project-detail-close-face::before {
+  opacity: 0.92;
+  transform: translateY(-4px);
+}
+
+.project-detail-close-hit:hover .project-detail-close-face::after,
+.project-detail-close-hit:focus-visible .project-detail-close-face::after,
+.project-detail-close-hit.is-proximate .project-detail-close-face::after {
+  opacity: 1;
+  transform: translate(4px, 4px) scale(1.08);
+}
+
+.project-detail-close-hit:hover .project-detail-close-face .glass-frame-outline rect,
+.project-detail-close-hit:focus-visible .project-detail-close-face .glass-frame-outline rect,
+.project-detail-close-hit.is-proximate .project-detail-close-face .glass-frame-outline rect {
+  stroke: rgba(255, 255, 255, 1);
+  stroke-dasharray: var(--frame-hover-dash) var(--frame-hover-gap);
+}
+
+.project-detail-close-hit:hover .project-detail-close-icon,
+.project-detail-close-hit:focus-visible .project-detail-close-icon,
+.project-detail-close-hit.is-proximate .project-detail-close-icon {
   transform: rotate(225deg) scale(1.08);
+}
+
+.project-detail-close-hit:focus-visible {
+  outline: none;
 }
 
 .project-detail-media,
@@ -613,8 +675,8 @@ body.cursor-interactive .eyebrow {
 
 .project-detail-cta {
   position: absolute;
-  left: 20px;
-  bottom: 20px;
+  left: 50%;
+  bottom: 24px;
   display: inline-flex;
   width: auto;
   height: auto;
@@ -623,7 +685,7 @@ body.cursor-interactive .eyebrow {
   min-height: 52px;
   border: 0;
   padding: 0 22px;
-  border-radius: 999px;
+  border-radius: 16px;
   background: rgba(255, 255, 255, 0.08);
   box-shadow:
     inset 0 18px 40px rgba(255, 255, 255, 0.06),
@@ -638,7 +700,9 @@ body.cursor-interactive .eyebrow {
   color: #f8fbff;
   text-decoration: none;
   overflow: hidden;
+  transform: translateX(-50%);
   transition: background-color 220ms ease, transform 220ms ease, box-shadow 220ms ease;
+  isolation: isolate;
 }
 
 .project-detail-cta::before {
@@ -658,10 +722,20 @@ body.cursor-interactive .eyebrow {
 .project-detail-cta-outline {
   position: absolute;
   inset: 0;
+  width: 100%;
+  height: 100%;
   pointer-events: none;
-  border: 1px dashed rgba(255, 255, 255, 0.68);
-  border-radius: inherit;
-  transition: border-color 220ms ease, border-style 260ms ease;
+  z-index: 1;
+}
+
+.project-detail-cta-outline rect {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.68);
+  stroke-width: 1;
+  stroke-linecap: butt;
+  vector-effect: non-scaling-stroke;
+  stroke-dasharray: 8 10;
+  transition: stroke 220ms ease, stroke-dasharray 260ms ease;
 }
 
 .project-detail-cta:hover {
@@ -669,6 +743,7 @@ body.cursor-interactive .eyebrow {
   box-shadow:
     inset 0 20px 42px rgba(255, 255, 255, 0.12),
     0 22px 55px rgba(0, 0, 0, 0.24);
+  transform: translateX(-50%);
 }
 
 .project-detail-cta:hover::before {
@@ -682,8 +757,11 @@ body.cursor-interactive .eyebrow {
 }
 
 .project-detail-cta:hover .project-detail-cta-outline {
-  border-color: rgba(255, 255, 255, 1);
-  border-style: solid;
+}
+
+.project-detail-cta:hover .project-detail-cta-outline rect {
+  stroke: rgba(255, 255, 255, 1);
+  stroke-dasharray: 180 0;
 }
 
 .project-detail-cta:focus-visible {
@@ -839,10 +917,12 @@ body.cursor-interactive .eyebrow {
   }
 
   .project-detail-cta {
-    left: 14px;
-    right: 14px;
+    left: 50%;
     bottom: 14px;
+    width: calc(100% - 28px);
+    max-width: 280px;
     justify-content: center;
+    transform: translateX(-50%);
   }
 
   .project-detail-copy {
