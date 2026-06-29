@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Made with AI</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body data-scene="day">
+    <div class="cursor-glow" aria-hidden="true"></div>
+    <div class="cursor-ring" aria-hidden="true"></div>
+    <div class="floating-project-preview" aria-hidden="true">
+      <img src="" alt="" />
+    </div>
+    <div class="page-shell">
+      <header class="hero">
+        <nav class="topbar">
+          <img src="assets/logo.svg" alt="Logo" class="logo" />
+          <button
+            class="glass-frame"
+            type="button"
+            aria-label="Switch background to night"
+            aria-pressed="false"
+          >
+            <span class="frame-icon" aria-hidden="true">
+              <img src="assets/day.svg" alt="" />
+            </span>
+            <svg class="glass-frame-outline" viewBox="0 0 50 50" aria-hidden="true">
+              <rect x="1" y="1" width="48" height="48" rx="11" ry="11"></rect>
+            </svg>
+          </button>
+        </nav>
+        <div class="hero-text">
+          <h1 class="eyebrow">
+            <img src="assets/heroheading.svg" alt="Made with AI" class="hero-heading-art" />
+          </h1>
+          <p class="subheading">Every project starts with an idea, shaped by design thinking and brought to life faster with AI. This is where I experiment, learn, and build things<br />because they spark my curiosity.</p>
+        </div>
+      </header>
+
+      <main class="content">
+        <section class="project-list" aria-label="Projects">
+          <article
+            class="project-item"
+            tabindex="0"
+            data-title="Lace Maker"
+            data-body="A textile-led exploration where visual references, layout systems, and AI-assisted making come together to shape a softer kind of digital craft."
+            data-image="assets/overlay.png"
+            data-link="#"
+            data-kicker="Material Study"
+            data-notes="Built by turning a small visual curiosity into a structured experiment with rhythm, pattern, and tactility."
+            data-tools="Figma direction, AI image support, rapid prototyping"
+          >
+            <svg class="project-outline" aria-hidden="true">
+              <rect></rect>
+            </svg>
+            <div class="project-icon" aria-hidden="true">
+              <img src="assets/project_icon.svg" alt="" />
+            </div>
+            <div class="project-copy">
+              <h2 class="project-title">Lace Maker</h2>
+              <p class="project-body">A textile-led exploration where visual references, layout systems, and AI-assisted making come together to shape a softer kind of digital craft.</p>
+            </div>
+            <div class="project-preview" aria-hidden="true">
+              <img src="assets/overlay.png" alt="" />
+            </div>
+          </article>
+
+          <article
+            class="project-item"
+            tabindex="0"
+            data-title="Thread Bloom"
+            data-body="A motion-first experiment focused on atmosphere, transitions, and using AI to quickly test mood, texture, and animated storytelling."
+            data-image="assets/_.gif"
+            data-link="#"
+            data-kicker="Motion Study"
+            data-notes="Built to see how quickly an ambient concept could become a living interface moment without losing design intent."
+            data-tools="Concept framing, AI motion testing, interface styling"
+          >
+            <svg class="project-outline" aria-hidden="true">
+              <rect></rect>
+            </svg>
+            <div class="project-icon" aria-hidden="true">
+              <img src="assets/project_icon.svg" alt="" />
+            </div>
+            <div class="project-copy">
+              <h2 class="project-title">Thread Bloom</h2>
+              <p class="project-body">A motion-first experiment focused on atmosphere, transitions, and using AI to quickly test mood, texture, and animated storytelling.</p>
+            </div>
+            <div class="project-preview" aria-hidden="true">
+              <img src="assets/_.gif" alt="" />
+            </div>
+          </article>
+
+          <article
+            class="project-item"
+            tabindex="0"
+            data-title="Soft Loom"
+            data-body="An interface concept exploring how AI can accelerate early product thinking while keeping the tone handcrafted, warm, and intentional."
+            data-image="assets/overlay.png"
+            data-link="#"
+            data-kicker="Interface Concept"
+            data-notes="Built as a study in contrast: fast generation on one side, careful curation and design judgment on the other."
+            data-tools="UI composition, copy shaping, AI-assisted iteration"
+          >
+            <svg class="project-outline" aria-hidden="true">
+              <rect></rect>
+            </svg>
+            <div class="project-icon" aria-hidden="true">
+              <img src="assets/project_icon.svg" alt="" />
+            </div>
+            <div class="project-copy">
+              <h2 class="project-title">Soft Loom</h2>
+              <p class="project-body">An interface concept exploring how AI can accelerate early product thinking while keeping the tone handcrafted, warm, and intentional.</p>
+            </div>
+            <div class="project-preview" aria-hidden="true">
+              <img src="assets/overlay.png" alt="" />
+            </div>
+          </article>
+        </section>
+      </main>
+
+      <footer class="toolbar" aria-label="Quick actions">
+        <img class="toolbar-gif" src="assets/footericons-pingpong.gif" alt="" />
+      </footer>
+    </div>
+    <section class="project-detail" aria-hidden="true">
+      <div class="project-detail-backdrop" data-close-detail></div>
+      <div class="project-detail-panel" role="dialog" aria-modal="true" aria-labelledby="project-detail-title">
+        <svg class="project-detail-outline" aria-hidden="true">
+          <rect></rect>
+        </svg>
+        <button class="project-detail-close glass-frame" type="button" aria-label="Close project detail" data-close-detail>
+          <span class="project-detail-close-icon" aria-hidden="true">+</span>
+          <svg class="glass-frame-outline" viewBox="0 0 50 50" aria-hidden="true">
+            <rect x="1" y="1" width="48" height="48" rx="11" ry="11"></rect>
+          </svg>
+        </button>
+        <div class="project-detail-media">
+          <img src="" alt="" class="project-detail-image" />
+          <a class="project-detail-cta glass-frame" href="#" target="_blank" rel="noreferrer">
+            <span class="project-detail-cta-label">Visit the product</span>
+            <span class="project-detail-cta-outline" aria-hidden="true"></span>
+          </a>
+        </div>
+        <div class="project-detail-copy">
+          <p class="project-detail-kicker"></p>
+          <h2 class="project-detail-title" id="project-detail-title"></h2>
+          <p class="project-detail-body"></p>
+          <div class="project-detail-grid">
+            <div class="project-detail-block">
+              <span class="project-detail-label">Why it exists</span>
+              <p class="project-detail-notes"></p>
+            </div>
+            <div class="project-detail-block">
+              <span class="project-detail-label">What shaped it</span>
+              <p class="project-detail-tools"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <script>
+      const sceneToggle = document.querySelector(".glass-frame");
+      const body = document.body;
+      const cursorGlow = document.querySelector(".cursor-glow");
+      const cursorRing = document.querySelector(".cursor-ring");
+      const floatingProjectPreview = document.querySelector(".floating-project-preview");
+      const floatingProjectPreviewImage = floatingProjectPreview?.querySelector("img");
+      const interactiveNodes = document.querySelectorAll("button, .logo, .project-item");
+      const projectItems = document.querySelectorAll(".project-item");
+      const projectDetail = document.querySelector(".project-detail");
+      const projectDetailPanel = document.querySelector(".project-detail-panel");
+      const projectDetailOutline = document.querySelector(".project-detail-outline");
+      const projectDetailCloseButton = document.querySelector(".project-detail-close");
+      const projectDetailImage = document.querySelector(".project-detail-image");
+      const projectDetailCta = document.querySelector(".project-detail-cta");
+      const projectDetailKicker = document.querySelector(".project-detail-kicker");
+      const projectDetailTitle = document.querySelector(".project-detail-title");
+      const projectDetailBody = document.querySelector(".project-detail-body");
+      const projectDetailNotes = document.querySelector(".project-detail-notes");
+      const projectDetailTools = document.querySelector(".project-detail-tools");
+      const projectDetailCloseNodes = document.querySelectorAll("[data-close-detail]");
+      let projectOutlineObserver;
+      let activeProjectItem = null;
+
+      const syncProjectOutlines = () => {
+        projectItems.forEach((item) => {
+          const outline = item.querySelector(".project-outline");
+          const rect = outline?.querySelector("rect");
+
+          if (!outline || !rect) {
+            return;
+          }
+
+          const width = item.clientWidth;
+          const height = item.clientHeight;
+          const radius = parseFloat(getComputedStyle(item).getPropertyValue("--project-radius")) || 22;
+          const borderWidth = parseFloat(getComputedStyle(item).getPropertyValue("--project-border-width")) || 1.6;
+          const inset = borderWidth / 2;
+
+          outline.setAttribute("viewBox", `0 0 ${width} ${height}`);
+          rect.setAttribute("x", String(inset));
+          rect.setAttribute("y", String(inset));
+          rect.setAttribute("width", String(Math.max(width - inset * 2, 0)));
+          rect.setAttribute("height", String(Math.max(height - inset * 2, 0)));
+          rect.setAttribute("rx", String(Math.max(radius - inset, 0)));
+          rect.setAttribute("ry", String(Math.max(radius - inset, 0)));
+        });
+      };
+
+      const syncProjectDetailOutline = () => {
+        const rect = projectDetailOutline?.querySelector("rect");
+
+        if (!projectDetailPanel || !projectDetailOutline || !rect) {
+          return;
+        }
+
+        const width = projectDetailPanel.clientWidth;
+        const height = projectDetailPanel.clientHeight;
+        const borderWidth = 1.6;
+        const inset = borderWidth / 2;
+        const radius = 32;
+
+        projectDetailOutline.setAttribute("viewBox", `0 0 ${width} ${height}`);
+        rect.setAttribute("x", String(inset));
+        rect.setAttribute("y", String(inset));
+        rect.setAttribute("width", String(Math.max(width - inset * 2, 0)));
+        rect.setAttribute("height", String(Math.max(height - inset * 2, 0)));
+        rect.setAttribute("rx", String(Math.max(radius - inset, 0)));
+        rect.setAttribute("ry", String(Math.max(radius - inset, 0)));
+      };
+
+      const syncProjectPreviewPosition = (item, event) => {
+        if (!floatingProjectPreview || body.classList.contains("detail-open")) {
+          return;
+        }
+
+        const itemRect = item.getBoundingClientRect();
+        const previewWidth = floatingProjectPreview.offsetWidth || 188;
+        const previewHeight = floatingProjectPreview.offsetHeight || 122;
+        const minLeft = itemRect.left + itemRect.width * 0.48;
+        const maxLeft = itemRect.right - previewWidth - 12;
+        const minTop = itemRect.top - 22;
+        const maxTop = itemRect.bottom - previewHeight * 0.35;
+        const nextLeft = Math.min(Math.max(event.clientX + 18, minLeft), maxLeft);
+        const nextTop = Math.min(Math.max(event.clientY - previewHeight / 2, minTop), maxTop);
+
+        floatingProjectPreview.style.setProperty("--floating-preview-x", `${nextLeft}px`);
+        floatingProjectPreview.style.setProperty("--floating-preview-y", `${nextTop}px`);
+      };
+
+      const updateDetailCloseProximity = (event) => {
+        if (!projectDetailCloseButton || !body.classList.contains("detail-open")) {
+          projectDetailCloseButton?.classList.remove("is-proximate");
+          return;
+        }
+
+        const rect = projectDetailCloseButton.getBoundingClientRect();
+        const proximityRect = {
+          top: rect.top - 2,
+          right: rect.right + 2,
+          bottom: rect.bottom + 12,
+          left: rect.left - 2
+        };
+
+        const isNearClose =
+          event.clientX >= proximityRect.left &&
+          event.clientX <= proximityRect.right &&
+          event.clientY >= proximityRect.top &&
+          event.clientY <= proximityRect.bottom;
+
+        projectDetailCloseButton.classList.toggle("is-proximate", isNearClose);
+      };
+
+      const openProjectDetail = (item) => {
+        if (!projectDetail || !projectDetailImage || !projectDetailKicker || !projectDetailTitle || !projectDetailBody || !projectDetailNotes || !projectDetailTools) {
+          return;
+        }
+
+        const {
+          title,
+          body: detailBody,
+          image,
+          link,
+          kicker,
+          notes,
+          tools
+        } = item.dataset;
+
+        activeProjectItem?.classList.remove("is-selected");
+        activeProjectItem = item;
+        activeProjectItem.classList.add("is-selected");
+
+        projectDetailImage.src = image || "";
+        projectDetailImage.alt = title || "";
+        if (projectDetailCta) {
+          projectDetailCta.href = link || "#";
+        }
+        projectDetailKicker.textContent = kicker || "";
+        projectDetailTitle.textContent = title || "";
+        projectDetailBody.textContent = detailBody || "";
+        projectDetailNotes.textContent = notes || "";
+        projectDetailTools.textContent = tools || "";
+
+        projectDetail.setAttribute("aria-hidden", "false");
+        body.classList.add("detail-open");
+        floatingProjectPreview?.classList.remove("is-visible");
+        requestAnimationFrame(syncProjectDetailOutline);
+      };
+
+      const closeProjectDetail = () => {
+        projectDetail?.setAttribute("aria-hidden", "true");
+        body.classList.remove("detail-open");
+        projectDetailCloseButton?.classList.remove("is-proximate");
+        activeProjectItem?.classList.remove("is-selected");
+        activeProjectItem = null;
+      };
+
+      sceneToggle?.addEventListener("click", () => {
+        const isNightScene = body.dataset.scene === "night";
+        const nextScene = isNightScene ? "day" : "night";
+        const nextIcon = nextScene === "night" ? "assets/night.svg" : "assets/day.svg";
+        const nextLabel = nextScene === "night" ? "Switch background to day" : "Switch background to night";
+
+        body.dataset.scene = nextScene;
+        sceneToggle.setAttribute("aria-pressed", String(nextScene === "night"));
+        sceneToggle.setAttribute("aria-label", nextLabel);
+        const frameIcon = sceneToggle.querySelector("img");
+        if (frameIcon) {
+          frameIcon.src = nextIcon;
+        }
+      });
+
+      if (window.matchMedia("(pointer: fine)").matches && cursorGlow && cursorRing) {
+        let currentX = window.innerWidth / 2;
+        let currentY = window.innerHeight / 2;
+        let targetX = currentX;
+        let targetY = currentY;
+
+        const renderCursor = () => {
+          currentX += (targetX - currentX) * 0.16;
+          currentY += (targetY - currentY) * 0.16;
+
+          cursorGlow.style.transform = `translate(${currentX}px, ${currentY}px)`;
+          cursorRing.style.transform = `translate(${targetX}px, ${targetY}px)`;
+          requestAnimationFrame(renderCursor);
+        };
+
+        window.addEventListener("mousemove", (event) => {
+          targetX = event.clientX;
+          targetY = event.clientY;
+          const glowX = `${(event.clientX / window.innerWidth) * 100}%`;
+          const glowY = `${(event.clientY / window.innerHeight) * 100}%`;
+          document.documentElement.style.setProperty("--hero-glow-x", glowX);
+          document.documentElement.style.setProperty("--hero-glow-y", glowY);
+          body.classList.add("cursor-active");
+          updateDetailCloseProximity(event);
+        });
+
+        window.addEventListener("mouseleave", () => {
+          body.classList.remove("cursor-active");
+        });
+
+        interactiveNodes.forEach((node) => {
+          node.addEventListener("mouseenter", () => {
+            body.classList.add("cursor-interactive");
+          });
+
+          node.addEventListener("mouseleave", () => {
+            body.classList.remove("cursor-interactive");
+          });
+        });
+
+        projectItems.forEach((item) => {
+          item.addEventListener("mouseenter", (event) => {
+            const previewSource = item.querySelector(".project-preview img")?.getAttribute("src");
+
+            if (floatingProjectPreview && floatingProjectPreviewImage && previewSource) {
+              floatingProjectPreviewImage.src = previewSource;
+              floatingProjectPreview.classList.add("is-visible");
+            }
+
+            syncProjectPreviewPosition(item, event);
+          });
+
+          item.addEventListener("mousemove", (event) => {
+            syncProjectPreviewPosition(item, event);
+          });
+
+          item.addEventListener("mouseleave", () => {
+            floatingProjectPreview?.classList.remove("is-visible");
+          });
+        });
+
+        renderCursor();
+      }
+
+      projectItems.forEach((item) => {
+        item.addEventListener("click", () => {
+          openProjectDetail(item);
+        });
+
+        item.addEventListener("keydown", (event) => {
+          if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            openProjectDetail(item);
+          }
+        });
+      });
+
+      projectDetailCloseNodes.forEach((node) => {
+        node.addEventListener("click", closeProjectDetail);
+      });
+
+      window.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && body.classList.contains("detail-open")) {
+          closeProjectDetail();
+        }
+      });
+
+      syncProjectOutlines();
+      syncProjectDetailOutline();
+      window.addEventListener("resize", syncProjectOutlines);
+      window.addEventListener("resize", syncProjectDetailOutline);
+
+      if ("ResizeObserver" in window) {
+        projectOutlineObserver = new ResizeObserver(() => {
+          syncProjectOutlines();
+          syncProjectDetailOutline();
+        });
+
+        projectItems.forEach((item) => {
+          projectOutlineObserver.observe(item);
+        });
+
+        if (projectDetailPanel) {
+          projectOutlineObserver.observe(projectDetailPanel);
+        }
+      }
+
+      if (document.fonts?.ready) {
+        document.fonts.ready.then(() => {
+          syncProjectOutlines();
+          syncProjectDetailOutline();
+        });
+      }
+    </script>
+  </body>
+</html>
