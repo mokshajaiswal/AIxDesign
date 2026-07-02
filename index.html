@@ -3,12 +3,32 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Made with AI</title>
+    <title>AIxDesign</title>
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="styles.css" />
   </head>
-  <body data-scene="day">
+  <body class="is-loading" data-scene="day">
     <div class="cursor-glow" aria-hidden="true"></div>
     <div class="cursor-ring" aria-hidden="true"></div>
+    <div class="site-loader" aria-hidden="true">
+      <div class="site-loader-inner">
+        <img
+          class="site-loader-base"
+          src="assets/loaderbase.svg"
+          alt=""
+        />
+        <video
+          class="site-loader-animation"
+          autoplay
+          muted
+          playsinline
+          loop
+          preload="auto"
+        >
+          <source src="assets/loaderanimation.mp4" type="video/mp4" />
+        </video>
+      </div>
+    </div>
     <div class="floating-project-preview" aria-hidden="true">
       <img src="" alt="" />
     </div>
@@ -17,6 +37,9 @@
     </audio>
     <audio class="agent-wave-sound" preload="auto">
       <source src="assets/wavesound.mp3" type="audio/mpeg" />
+    </audio>
+    <audio class="agent-hello-sound" preload="auto">
+      <source src="assets/hellosound.mp3" type="audio/mpeg" />
     </audio>
     <div class="page-shell">
       <header class="hero">
@@ -282,6 +305,7 @@
       const floatingProjectPreviewImage = floatingProjectPreview?.querySelector("img");
       const agentJumpSound = document.querySelector(".agent-jump-sound");
       const agentWaveSound = document.querySelector(".agent-wave-sound");
+      const agentHelloSound = document.querySelector(".agent-hello-sound");
       const interactiveNodes = document.querySelectorAll("button, .logo, .project-item");
       const projectItems = document.querySelectorAll(".project-item");
       const leadProjectItem = document.querySelector(".project-item");
@@ -303,10 +327,13 @@
       const projectDetailNotes = document.querySelector(".project-detail-notes");
       const projectDetailTools = document.querySelector(".project-detail-tools");
       const projectDetailCloseNodes = document.querySelectorAll("[data-close-detail]");
+      const siteLoader = document.querySelector(".site-loader");
       const DETAIL_CLOSE_DURATION = 320;
+      const LOADER_MIN_DURATION = 5000;
       let projectOutlineObserver;
       let activeProjectItem = null;
       let detailCloseTimeout;
+      let loaderHideTimeout;
       let agentX = 18;
       let agentTargetX = 18;
       let agentFacing = 1;
@@ -316,8 +343,59 @@
       let agentJumpTimeout;
       let agentGuideStage = 0;
       let agentRunAwayUntil = 0;
+      let agentIntroStarted = false;
+      let agentPromptTimeout;
 
       const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
+
+      const hideSiteLoader = () => {
+        if (!siteLoader || !body.classList.contains("is-loading")) {
+          return;
+        }
+
+        body.classList.add("is-ready");
+        window.clearTimeout(loaderHideTimeout);
+        loaderHideTimeout = window.setTimeout(() => {
+          body.classList.remove("is-loading", "is-ready");
+          siteLoader.remove();
+          startProjectAgentIntro();
+        }, 980);
+      };
+
+      const startProjectAgentIntro = () => {
+        if (!projectAgent || agentIntroStarted) {
+          return;
+        }
+
+        agentIntroStarted = true;
+        window.setTimeout(() => {
+          showProjectAgentBubble("hellloooo", 1700);
+          window.setTimeout(() => {
+            showProjectAgentBubble("press space bar", 1900);
+            scheduleAgentPrompt();
+          }, 1900);
+        }, 350);
+      };
+
+      const scheduleAgentPrompt = () => {
+        window.clearTimeout(agentPromptTimeout);
+
+        if (body.classList.contains("detail-open")) {
+          return;
+        }
+
+        if (agentGuideStage === 0) {
+          agentPromptTimeout = window.setTimeout(() => {
+            showProjectAgentBubble("press space bar", 1900);
+            scheduleAgentPrompt();
+          }, 9000);
+        } else if (agentGuideStage === 1) {
+          agentPromptTimeout = window.setTimeout(() => {
+            showProjectAgentBubble("press W", 1600);
+            scheduleAgentPrompt();
+          }, 10000);
+        }
+      };
 
       const syncProjectOutlines = () => {
         projectItems.forEach((item) => {
@@ -560,8 +638,10 @@
 
         if (agentGuideStage === 0) {
           agentGuideStage = 1;
+          window.clearTimeout(agentPromptTimeout);
           window.setTimeout(() => {
             showProjectAgentBubble("press W", 1600);
+            scheduleAgentPrompt();
           }, 10000);
         }
       };
@@ -669,18 +749,30 @@
       };
 
       sceneToggle?.addEventListener("click", () => {
+        if (sceneToggle.classList.contains("is-switching")) {
+          return;
+        }
+
         const isNightScene = body.dataset.scene === "night";
         const nextScene = isNightScene ? "day" : "night";
         const nextIcon = nextScene === "night" ? "assets/night.svg" : "assets/day.svg";
         const nextLabel = nextScene === "night" ? "Switch background to day" : "Switch background to night";
+        const frameIcon = sceneToggle.querySelector("img");
 
         body.dataset.scene = nextScene;
         sceneToggle.setAttribute("aria-pressed", String(nextScene === "night"));
         sceneToggle.setAttribute("aria-label", nextLabel);
-        const frameIcon = sceneToggle.querySelector("img");
-        if (frameIcon) {
-          frameIcon.src = nextIcon;
-        }
+        sceneToggle.classList.add("is-switching");
+
+        window.setTimeout(() => {
+          if (frameIcon) {
+            frameIcon.src = nextIcon;
+          }
+        }, 160);
+
+        window.setTimeout(() => {
+          sceneToggle.classList.remove("is-switching");
+        }, 430);
       });
 
       if (window.matchMedia("(pointer: fine)").matches && cursorGlow && cursorRing) {
@@ -779,8 +871,16 @@
       projectAgent?.addEventListener("click", (event) => {
         event.preventDefault();
         event.stopPropagation();
+        if (agentHelloSound) {
+          agentHelloSound.volume = 1;
+          agentHelloSound.currentTime = 0;
+          agentHelloSound.play().catch(() => {});
+        }
         showProjectAgentBubble("hello", 1400);
-        waveProjectAgent();
+        projectAgent.classList.add("wave");
+        window.setTimeout(() => {
+          projectAgent.classList.remove("wave");
+        }, 1900);
       });
 
       projectDetailPanel?.addEventListener("click", (event) => {
@@ -817,6 +917,7 @@
           waveProjectAgent();
           if (agentGuideStage === 1) {
             agentGuideStage = 2;
+            window.clearTimeout(agentPromptTimeout);
           }
         }
 
@@ -874,12 +975,17 @@
         chooseProjectAgentTarget();
         animateProjectAgent();
         blinkProjectAgent();
-        window.setTimeout(() => {
-          showProjectAgentBubble("hellloooo", 1700);
-          window.setTimeout(() => {
-            showProjectAgentBubble("press space bar", 1900);
-          }, 1900);
-        }, 800);
+        if (!body.classList.contains("is-loading")) {
+          startProjectAgentIntro();
+        }
+      }
+
+      window.addEventListener("load", () => {
+        window.setTimeout(hideSiteLoader, LOADER_MIN_DURATION);
+      });
+
+      if (document.readyState === "complete") {
+        window.setTimeout(hideSiteLoader, LOADER_MIN_DURATION);
       }
 
     </script>
