@@ -125,15 +125,71 @@ body::before {
   object-fit: cover;
 }
 
-.site-loader-animation {
+.site-loader-stage {
   position: relative;
   z-index: 1;
-  width: min(100vw, 612px);
+  width: min(86vw, 612px);
+  display: grid;
+  justify-items: end;
+  gap: 6px;
+}
+
+.site-loader-track {
+  width: 100%;
   height: auto;
   display: block;
-  object-fit: contain;
-  mix-blend-mode: screen;
-  filter: saturate(1.02) brightness(1.02);
+  overflow: visible;
+}
+
+.site-loader-line {
+  stroke: #76c1da;
+  stroke-width: 3.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+}
+
+.site-loader-line-dim {
+  opacity: 0.22;
+}
+
+.site-loader-line-lit {
+  filter: drop-shadow(0 0 6px rgba(118, 193, 218, 0.5));
+}
+
+.site-loader-petals-shadow {
+  fill: #164f61;
+  transform: translate(-1px, 1.2px);
+}
+
+.site-loader-petals {
+  fill: #76c1da;
+}
+
+.site-loader-petals-sketch {
+  fill: none;
+  stroke: #76c1da;
+  stroke-width: 1.3;
+  stroke-linejoin: round;
+  transform: translate(1.2px, -0.8px);
+}
+
+.site-loader-flower-eye {
+  fill: #0b2b35;
+}
+
+.site-loader-dust circle {
+  fill: #9fd7ea;
+}
+
+.site-loader-count {
+  margin: 0;
+  margin-right: -6px;
+  font-family: "Mali", "Poppins", sans-serif;
+  font-size: 0.82rem;
+  letter-spacing: 0.14em;
+  color: rgba(118, 193, 218, 0.72);
+  font-variant-numeric: tabular-nums;
 }
 
 body.is-ready .site-loader {
@@ -1247,8 +1303,8 @@ body.cursor-interactive .eyebrow {
     display: none;
   }
 
-  .site-loader-animation {
-    width: min(100vw, 468px);
+  .site-loader-stage {
+    width: min(84vw, 468px);
   }
 
   .page-shell {
@@ -1335,5 +1391,58 @@ body.cursor-interactive .eyebrow {
   .toolbar {
     bottom: 16px;
     width: min(100% - 32px, 437px);
+  }
+}
+
+/* Showcase: a project with several pictures (data-images) cycles through them.
+   The frame takes the pictures' own shape (700 × 800), so nothing is cropped. */
+.project-detail.is-showcase .project-detail-media {
+  align-self: center;
+  justify-self: center;
+  width: min(100%, calc((100dvh - 120px) * 7 / 8));
+  aspect-ratio: 7 / 8;
+  min-height: 0;
+  background: #f5f3ee;
+}
+
+.project-detail-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 900ms ease;
+}
+
+.project-detail-slide.is-showing {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-detail-slide {
+    transition: none;
+  }
+}
+
+/* The "Visit the product" button sits on the picture, so it gets a solid dark face to stay readable. */
+.project-detail.is-showcase .project-detail-media::after {
+  z-index: 3;
+}
+
+.project-detail-cta,
+.project-detail-cta:hover {
+  z-index: 5;
+  background: rgba(22, 33, 41, 0.86);
+  color: #ffffff;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    0 12px 30px rgba(0, 0, 0, 0.32);
+}
+
+.project-detail-cta:hover {
+  background: rgba(14, 22, 28, 0.94);
+}
+
+@media (max-width: 720px) {
+  .project-detail.is-showcase .project-detail-media {
+    width: min(100%, calc(50dvh * 7 / 8));
   }
 }
