@@ -909,7 +909,9 @@ body.cursor-interactive .eyebrow {
   position: fixed;
   inset: 0;
   display: grid;
-  place-items: center;
+  place-items: start center;
+  overflow-y: auto;
+  overscroll-behavior: contain;
   padding: 32px 24px;
   opacity: 0;
   visibility: hidden;
@@ -934,7 +936,7 @@ body.cursor-interactive .eyebrow {
 }
 
 .project-detail-backdrop {
-  position: absolute;
+  position: fixed;
   inset: 0;
   background:
     linear-gradient(180deg, rgba(4, 20, 34, 0.5), rgba(4, 20, 34, 0.74)),
@@ -949,6 +951,7 @@ body.cursor-interactive .eyebrow {
   --project-detail-dash: 10;
   --project-detail-gap: 14;
   position: relative;
+  margin-block: auto;
   width: min(100%, 980px);
   display: grid;
   grid-template-columns: minmax(280px, 0.95fr) minmax(0, 1fr);
@@ -1014,7 +1017,7 @@ body.cursor-interactive .eyebrow {
   -webkit-appearance: none;
   background: transparent;
   box-shadow: none;
-  z-index: 2;
+  z-index: 5;
   cursor: pointer;
   pointer-events: auto;
   touch-action: manipulation;

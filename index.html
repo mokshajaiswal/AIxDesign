@@ -90,7 +90,7 @@
             data-body="A personal task app where every piece of work is a tear-off flyer of tiny tasks. Pull a tab off when it's done."
             data-image="assets/tick-1-projects.jpg"
             data-images="assets/tick-1-projects.jpg|assets/tick-2-flyer.jpg|assets/tick-3-flyer-dark.jpg|assets/tick-4-new.jpg"
-            data-link="#"
+            data-link="https://tickittt.netlify.app/"
             data-kicker="Task App"
             data-notes="To-do lists feel endless. A flyer of tabs to tear off makes progress something you can see and feel, and a finished flyer goes into the shredder."
             data-tools="Built with AI as a single-page app that installs to the home screen and works offline. No server: tasks stay in your browser, with backups and a weekly Google Sheet sync."
@@ -958,6 +958,9 @@
         event.stopPropagation();
         closeProjectDetail();
       });
+
+      // Keyboard (Enter/Space) fires click, not pointerdown.
+      projectDetailCloseButton?.addEventListener("click", closeProjectDetail);
 
       projectDetailCloseNodes.forEach((node) => {
         if (node === projectDetailCloseButton) {
